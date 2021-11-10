@@ -2,24 +2,28 @@ import time
 from random import randint
 import os
 # ... definition of log decorator...
+
+
 def log(f):
     def wrapper(*args, **kwargs):
         start = time.time()
         ret = f(*args, **kwargs)
         end = time.time()
         full_time = end - start
-        
-        time_string = f'{full_time * 1000:.3f} ms' if full_time < 0.0001 else f'{full_time:.3f} s'
-        string = f'({os.getlogin()})Running: {f.__name__:19s}[ exec-time = ' + time_string + ' ]\n'
+        time_string = f'{full_time * 1000:.3f} \
+ms' if full_time < 0.0001 else f'{full_time:.3f} s'
+        string = f'({os.getlogin()})Running: {f.__name__:19s}[ \
+exec-time = ' + time_string + ' ]\n'
         fd = open("machine.log", "a")
         fd.write(string)
         fd.close()
         return ret
     return wrapper
 
+
 class CoffeeMachine():
     water_level = 100
-    
+
     @log
     def start_machine(self):
         if self.water_level > 20:
@@ -27,7 +31,7 @@ class CoffeeMachine():
         else:
             print("Please add water!")
         return False
-    
+
     @log
     def boil_water(self):
         return "boiling..."
@@ -40,7 +44,7 @@ class CoffeeMachine():
         self.water_level -= 1
         print(self.boil_water())
         print("Coffee is ready!")
-    
+
     @log
     def add_water(self, water_level):
         time.sleep(randint(1, 5))
