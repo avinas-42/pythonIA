@@ -20,6 +20,8 @@ class ImageProcessor:
             return None
 
     def display(self, arr):
+        if arr is None:
+            return None
         plt.imshow(arr)
         plt.axis('off')
         plt.show()
