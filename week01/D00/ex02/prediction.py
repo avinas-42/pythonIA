@@ -3,13 +3,14 @@ import numpy as np
 
 def test_type(values, type, size):
     if isinstance(values, type):
-        ret = True
         if size > 0:
             if values.shape[0] != size:
-                ret = False
+                return False
         elif values.shape[0] < 1:
-            ret = False
-        return ret
+            return False
+    else:
+        return False
+    return True
 
 
 def simple_predict(x, theta):
